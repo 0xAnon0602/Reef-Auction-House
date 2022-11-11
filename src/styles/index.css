@@ -1,0 +1,31 @@
+/* Reef UI Kit is used by default, you can add other styles here */
+
+
+.titleTop {
+	margin-top: 0.6em;
+}
+
+.titleName {
+		height: 2.5em;		
+}
+
+.titleCard {
+	width: clamp(300px, 25%, 700px) !important;	
+	margin: 1rem;
+}
+
+.loadButton {
+	margin: auto;
+}
+
+.getButton {
+	margin: auto;
+}
+
+.textCard {
+	margin-right: 9%%;
+}
+
+.valueAmount {
+	margin: auto;
+}
