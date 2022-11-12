@@ -2,8 +2,8 @@
   "_format": "hh-sol-artifact-1",
   "contractName": "auctionHouse",
   "sourceName": "contracts/auctionHouse.sol",
-  "address": "0xc11D24fc17Fb4034992569b3821A8CaFC3380f39",
-  "abi": [
+  "address": "0x34596dc55067163abca658646eef612034ba90b1",
+  "abi":[
     {
       "constant": false,
       "inputs": [],

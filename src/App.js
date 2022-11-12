@@ -5,6 +5,7 @@ import { WsProvider } from "@polkadot/rpc-provider";
 import { Contract } from "ethers";
 import GreeterContract from "./contracts/Greeter.json";
 import Uik from "@reef-defi/ui-kit";
+import fromExponential from 'from-exponential';
 
 
 const FactoryAbi = GreeterContract.abi;
@@ -30,7 +31,6 @@ function App() {
 
 	const [signer, setSigner] = useState();
 	const [isWalletConnected, setWalletConnected] = useState(false);
-
 
 
 	const checkExtension = async () => {
@@ -148,6 +148,7 @@ function App() {
 		);
 		const result = await factoryContract.highestBid();
 		setHighestBid(parseInt(result/10**18))
+		// eslint-disable-next-line		
 		if(result==0){setHighestBid("0")}
 
 	};
@@ -170,7 +171,7 @@ function App() {
 			FactoryAbi,
 			signer
 		);
-		const _toSend = String((value*balance)/100*10**18)
+		const _toSend = fromExponential(parseInt(parseInt(value*balance)/100)*10**18)
 		await factoryContract.bid({value:_toSend })
 		await updateFunction()
 	}
@@ -215,11 +216,12 @@ function App() {
  
 	const updateFunction = async () =>{
 		 getAuctionStatus()
-		 getAuctionPrize()
+		  getAuctionPrize()
 		 getYourBid()
 		 getHighestBid()
-		 getYourBalance()
 		 isOwnerFunction()
+		await getYourBalance()
+
 		 setIsupdated(true)
 	} 
 
@@ -375,7 +377,7 @@ function App() {
 						value={value}
 						onChange={e => setValue(e)}
 
-						tooltip={(value*balance)/100 }
+						tooltip={parseInt((value*balance)/100)}
 						helpers={[
 							{ position: 0, text: "0" },
 							{ position: 100, text: `${balance}` },
@@ -487,7 +489,6 @@ function App() {
 						}
 						</Uik.Card>
 						</Uik.Container>						
-						<Uik.Bubbles/>
 
 
 					</>
