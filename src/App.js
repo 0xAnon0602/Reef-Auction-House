@@ -21,6 +21,8 @@ function App() {
 	const [msgHighestBid, setHighestBid] = useState("0");
 	const [balance, setBalance] = useState("");
 	const [isSameWallet, setIsSameWallet] = useState(false)
+	const [isUpdated, setIsupdated] = useState(false)
+	const [isOwner , setIsOwner] = useState(false)
 
 
 	const [value, setValue] = useState(0)
@@ -196,13 +198,29 @@ function App() {
 		await updateFunction()
 	}
 
+	const isOwnerFunction = async () =>{
+		await checkSigner();
+		const factoryContract = new Contract(
+			factoryContractAddress,
+			FactoryAbi,
+			signer
+		);
+		const result = await factoryContract.owner()
+		const evmAddress = await signer.queryEvmAddress()
+		if(result.toLocaleLowerCase()===evmAddress.toLocaleLowerCase()){
+		setIsOwner(true)
+		}else(setIsOwner(false))
+	}
 
+ 
 	const updateFunction = async () =>{
 		 getAuctionStatus()
 		 getAuctionPrize()
 		 getYourBid()
 		 getHighestBid()
 		 getYourBalance()
+		 isOwnerFunction()
+		 setIsupdated(true)
 	} 
 
 
@@ -343,7 +361,14 @@ function App() {
 						<Uik.Loading className="loadButton" text='Connect Wallet ...'/>
 						): <>
 						<br></br>
+				
+				{isUpdated ? (
+					
+						<>
 
+						{auctionBool ? (
+
+							<>
 						{!isSameWallet ? (
 
 						<Uik.Slider
@@ -361,8 +386,25 @@ function App() {
 						
 						</>
 						}
+						</>
+
+						):<>
+						</>
+						}
+
+						</>
+						
+				):<>
+				</>
+					}
+				{isUpdated ? (
+
+					<>
+
+					{auctionBool ? (
 
 							<Uik.Container flow="spaceBetween">
+		
 		
 							{!isSameWallet ? (
 								<Uik.Button
@@ -374,10 +416,20 @@ function App() {
   							<Uik.Tag color="green" text="You already have the highest bid placed for this auction!"/>
 							</>
 						}
-							
-
-														
+													
 							</Uik.Container>
+
+					):<>
+ 					<Uik.Tag color="green" text="Currently there is no auction going on!"/>
+					 </>
+				}
+
+					</>
+						):<>
+						<Uik.Tag color="green" className="getButton" text="Click on the update button" />
+						</>
+						}
+							
 												
 						</>
 					}
@@ -390,6 +442,13 @@ function App() {
 						<Uik.Loading className="loadButton" text='Connect Wallet ...'/>
 						
 						): <>
+
+						{isUpdated ? (
+						  
+						  <>
+
+							{isOwner ? ( 
+						<>
 							{auctionBool ? (
 							<Uik.Container flow="spaceBetween">
  						    <Uik.Button text='End Auction' className="getButton" danger
@@ -412,6 +471,18 @@ function App() {
 							/>
 							</>
 						}
+						</>
+							):<>
+					<Uik.Tag color="green" text="You are not the owner of the contract!"/>
+							</>
+						}
+						</>
+						):<>
+						<Uik.Tag color="green" className="getButton" text="Click on the update button" />
+
+						</>
+						}
+
 						</>
 						}
 						</Uik.Card>

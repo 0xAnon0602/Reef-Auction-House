@@ -15,7 +15,7 @@
     "@open-wc/webpack-import-meta-loader": "^0.4.7"
   },
   "scripts": {
-    "start": "yarn start",
+    "start": "craco start",
     "build": "craco build",
     "test": "craco test",
     "eject": "react-scripts eject"
