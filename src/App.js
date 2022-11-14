@@ -3,13 +3,13 @@ import { web3Accounts, web3Enable } from "@polkadot/extension-dapp";
 import { Provider, Signer } from "@reef-defi/evm-provider";
 import { WsProvider } from "@polkadot/rpc-provider";
 import { Contract } from "ethers";
-import GreeterContract from "./contracts/auctionHouse.json";
+import AuctionHouseContract from "./contracts/auctionHouse.json";
 import Uik from "@reef-defi/ui-kit";
 import fromExponential from 'from-exponential';
 
 
-const FactoryAbi = GreeterContract.abi;
-const factoryContractAddress = GreeterContract.address;
+const FactoryAbi = AuctionHouseContract.abi;
+const factoryContractAddress = AuctionHouseContract.address;
 
 const URL = "wss://rpc-testnet.reefscan.com/ws";
 
